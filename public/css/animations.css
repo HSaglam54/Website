@@ -1,0 +1,122 @@
+/* Cursor Follower */
+.cursor-follower {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #00FF88;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.2s ease;
+    transform: translate(-50%, -50%);
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+}
+
+.scroll-line {
+    width: 1px;
+    height: 60px;
+    background: white;
+    margin: 1rem auto 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.scroll-line::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00FF88;
+    animation: scrollDown 2s ease infinite;
+}
+
+@keyframes scrollDown {
+    to { top: 100%; }
+}
+
+/* Floating Elements */
+.floating-elements {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.float-el {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.1;
+    animation: float 10s ease infinite;
+}
+
+.float-el:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+.float-el:nth-child(2) { top: 50%; right: 10%; animation-delay: 2s; }
+.float-el:nth-child(3) { bottom: 20%; left: 50%; animation-delay: 4s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+/* Split Screen */
+.split-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+}
+
+.split-left,
+.split-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+}
+
+.split-left {
+    background: #000;
+    color: #fff;
+}
+
+.split-right {
+    background: #f0f0f0;
+}
+
+.huge-text {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 0.9;
+}
+
+/* Word Animation */
+.contact-title .word {
+    display: inline-block;
+    overflow: hidden;
+}
+
+.contact-title .word span {
+    display: inline-block;
+    transform: translateY(100%);
+    animation: revealWord 0.8s ease forwards;
+}
+
+.contact-title .word:nth-child(1) span { animation-delay: 0.1s; }
+.contact-title .word:nth-child(2) span { animation-delay: 0.2s; }
+.contact-title .word:nth-child(3) span { animation-delay: 0.3s; }
+.contact-title .word:nth-child(4) span { animation-delay: 0.4s; }
+
+@keyframes revealWord {
+    to { transform: translateY(0); }
+}
