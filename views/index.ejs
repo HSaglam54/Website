@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TVG Klimatechnik - Klimatechnik der KOR Gruppe. Seit über 50 Jahren Ihr Partner für moderne Klimaanlagen in Wien, Linz und Graz">
+    <title>TVG Klimatechnik - Perfektes Klima seit über 50 Jahren</title>
+    
+    <link rel="icon" type="image/svg+xml" href="/images/TVG_Logo.svg">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen NUR mit KOR Logo -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <img src="/images/KOR_Logo.jpg" alt="KOR Gruppe" class="kor-logo">
+            <p class="loader-text">Klimatechnik der KOR Gruppe</p>
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <div class="logo">
+                <a href="/">
+                    <img src="/images/TVG_Logo.svg" alt="TVG Klimatechnik">
+                </a>
+            </div>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/">Start</a></li>
+                <li><a href="#services">Leistungen</a></li>
+                <li><a href="#about">Über uns</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+            
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section mit mehreren Hintergründen -->
+    <section class="hero">
+        <div class="hero-slider">
+            <!-- Slide 1 -->
+            <div class="hero-slide active">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Moderne Klimaanlage">
+            </div>
+            <!-- Slide 2 -->
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1565043666747-69f6646db940?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Klimatechnik Installation">
+            </div>
+            <!-- Slide 3 -->
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Moderne Büroklima">
+            </div>
+            <!-- Slide 4 -->
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1631545806609-66ab2e40d2b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Klimaanlage Wohnraum">
+            </div>
+        </div>
+        
+        <div class="hero-content">
+            <h1>
+                <span><span>PERFEKTES</span></span>
+                <span><span>KLIMA FÜR</span></span>
+                <span><span>IHR ZUHAUSE</span></span>
+            </h1>
+            <p class="hero-subtitle">
+                Moderne Klimatechnik vom Experten - für optimalen Komfort in jedem Raum.<br>
+                <strong>Klimatechnik der KOR Gruppe</strong>
+            </p>
+            
+            <div class="hero-cta">
+                <a href="#contact" class="btn-primary">
+                    <span>Jetzt beraten lassen</span>
+                </a>
+                <a href="#services" class="btn-secondary">
+                    <span>Unsere Leistungen</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Slide Indicators -->
+        <div class="slide-indicators">
+            <span class="indicator active" data-slide="0"></span>
+            <span class="indicator" data-slide="1"></span>
+            <span class="indicator" data-slide="2"></span>
+            <span class="indicator" data-slide="3"></span>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <div class="section-number">01</div>
+            <h2 class="section-title">Unsere Leistungen</h2>
+            <div class="gold-line"></div>
+            <p class="section-subtitle">Alles aus einer Hand für Ihr perfektes Raumklima</p>
+        </div>
+
+        <div class="service-grid">
+            <!-- Beratung -->
+            <div class="service-card">
+                <div class="service-icon">🌡️</div>
+                <h3>Beratung</h3>
+                <p>Individuelle Beratung für die optimale Klimatechnik in Ihren Räumen</p>
+            </div>
+
+            <!-- Planung -->
+            <div class="service-card">
+                <div class="service-icon">📐</div>
+                <h3>Planung</h3>
+                <p>Professionelle Planung Ihrer Klimaanlage mit modernster Technik</p>
+            </div>
+
+            <!-- Montage -->
+            <div class="service-card">
+                <div class="service-icon">🔧</div>
+                <h3>Montage</h3>
+                <p>Fachgerechte Installation durch zertifizierte Techniker</p>
+            </div>
+
+            <!-- Service -->
+            <div class="service-card">
+                <div class="service-icon">🛠️</div>
+                <h3>Service & Wartung</h3>
+                <p>Regelmäßige Wartung für dauerhaft optimale Leistung</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="50">0</div>
+                    <div class="stat-label">Jahre Erfahrung</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="10000">0</div>
+                    <div class="stat-label">Zufriedene Kunden</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="5000">0</div>
+                    <div class="stat-label">Betreute Anlagen</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="section-header">
+            <div class="section-number">02</div>
+            <h2 class="section-title">Über TVG Klimatechnik</h2>
+            <div class="gold-line"></div>
+        </div>
+        
+        <div class="about-container">
+            <div class="about-text">
+                <h2>Seit über 50 Jahren Ihr Partner</h2>
+                <p>TVG Klimatechnik steht seit mehr als fünf Jahrzehnten für höchste Qualität und Zuverlässigkeit in der Klimatechnik. Als stolzes Mitglied der KOR Gruppe - der Heimat des Handwerks - verbinden wir bewährte Handwerkskunst mit modernster Technologie.</p>
+                <p>Mit unseren Niederlassungen in Wien, Linz und Graz sind wir österreichweit für Sie da. Über 10.000 zufriedene Kunden vertrauen auf unsere Expertise bei Planung, Installation und Wartung von Klimaanlagen.</p>
+                <p>Unser Team aus erfahrenen Technikern betreut über 5.000 Anlagen und sorgt dafür, dass Sie sich in Ihren Räumen wohlfühlen - bei jedem Wetter.</p>
+                <a href="/unternehmen" class="btn-primary">
+                    <span>Mehr über uns erfahren</span>
+                </a>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="TVG Team">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact" id="contact">
+        <div class="contact-inner">
+            <h2>Bereit für Ihr perfektes Raumklima?</h2>
+            <p>Lassen Sie sich von unseren Experten beraten und finden Sie die ideale Klimalösung</p>
+            <a href="tel:+43XXXXXXX" class="contact-btn">
+                <span>Jetzt anrufen</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="/images/TVG_Logo.svg" alt="TVG Klimatechnik">
+                </div>
+                <p>Seit über 50 Jahren Ihr Partner für moderne Klimatechnik in Österreich. Beratung, Planung, Montage und Service - alles aus einer Hand.</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">Klimatechnik der <strong>KOR Gruppe</strong></p>
+                
+                <h4 style="margin-top: 2rem;">Unsere Standorte</h4>
+                <div class="locations">
+                    <div class="location-card">
+                        <h5>📍 Wien</h5>
+                        <p>Hauptsitz</p>
+                        <p style="font-size: 0.8rem; opacity: 0.6;">Musterstraße 1<br>1010 Wien</p>
+                    </div>
+                    <div class="location-card">
+                        <h5>📍 Linz</h5>
+                        <p>Oberösterreich</p>
+                        <p style="font-size: 0.8rem; opacity: 0.6;">Landstraße 50<br>4020 Linz</p>
+                    </div>
+                    <div class="location-card">
+                        <h5>📍 Graz</h5>
+                        <p>Steiermark</p>
+                        <p style="font-size: 0.8rem; opacity: 0.6;">Herrengasse 16<br>8010 Graz</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Schnellkontakt</h4>
+                <p>📞 <a href="tel:+4312345678">+43 1 234 567-8</a><br>
+                📱 <a href="tel:+436641234567">+43 664 123 45 67</a><br>
+                ✉️ <a href="mailto:info@tvg.at">info@tvg.at</a><br>
+                🌐 <a href="https://www.tvg.at">www.tvg.at</a></p>
+                
+                <h4 style="margin-top: 2rem;">Notdienst</h4>
+                <p>🚨 24/7 Hotline:<br>
+                <strong><a href="tel:+4380012345">0800 123 45</a></strong></p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Öffnungszeiten</h4>
+                <p><strong>Büro & Beratung:</strong><br>
+                Mo-Do: 8:00 - 17:00<br>
+                Fr: 8:00 - 14:00<br>
+                Sa: nach Vereinbarung</p>
+                
+                <p style="margin-top: 1.5rem;"><strong>Service & Notdienst:</strong><br>
+                365 Tage im Jahr<br>
+                24 Stunden täglich</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 TVG Klimatechnik GmbH - Klimatechnik der KOR Gruppe. Alle Rechte vorbehalten. | 
+            <a href="/impressum">Impressum</a> | 
+            <a href="/datenschutz">Datenschutz</a></p>
+        </div>
+    </footer>
+
+    <!-- TVG Standorte Badge -->
+    <div class="tvg-standorte-badge" onclick="document.querySelector('.locations').scrollIntoView({behavior: 'smooth'})">
+        TVG Standorte →
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('fade-out');
+            }, 1500);
+        });
+
+        // Header Scroll
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Mobile Menu
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        // Hero Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const indicators = document.querySelectorAll('.indicator');
+
+        function changeSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        // Auto-play
+        setInterval(() => {
+            const nextSlide = (currentSlide + 1) % slides.length;
+            changeSlide(nextSlide);
+        }, 5000);
+
+        // Click indicators
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => changeSlide(index));
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Count Animation
+        const countElements = document.querySelectorAll('[data-count]');
+        const countObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.dataset.count);
+                    let current = 0;
+                    const increment = target / 70;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                        }
+                        entry.target.textContent = Math.floor(current).toLocaleString('de-AT');
+                    }, 20);
+                    countObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        countElements.forEach(el => countObserver.observe(el));
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Animate elements on scroll
+        document.querySelectorAll('.service-card, .stat-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
