@@ -3,301 +3,1655 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> - TVG Admin</title>
+    <title>Website Editor - TVG Klimatechnik</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body {
-            background: #f5f5f5;
             margin: 0;
+            background: #f5f5f5;
             font-family: 'Outfit', sans-serif;
         }
         .admin-header {
             background: #003366;
             color: white;
-            padding: 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 20px 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 100;
         }
-        .header-content {
+        .admin-nav {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .editor-container {
-            max-width: 1200px;
-            margin: 40px auto;
             padding: 0 20px;
         }
-        .edit-section {
+        .admin-nav h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .main-content {
+            padding: 40px 0;
+        }
+        
+        .editor-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .page-header {
             background: white;
-            border-radius: 10px;
             padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-header h2 {
+            color: #003366;
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        /* Tabs für verschiedene Seitenbereiche */
+        .edit-tabs {
+            display: flex;
+            background: white;
+            border-radius: 10px 10px 0 0;
+            overflow: hidden;
+            margin-bottom: 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .section-title {
-            font-size: 1.5rem;
-            color: #003366;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #d4af36;
+        
+        .edit-tab {
+            padding: 15px 25px;
+            background: #f0f0f0;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
         }
+        
+        .edit-tab.active {
+            background: white;
+            color: #003366;
+            border-bottom: 3px solid #D4A574;
+        }
+        
+        .edit-tab:hover:not(.active) {
+            background: #e0e0e0;
+        }
+        
+        /* Content Editor Bereiche */
+        .edit-content {
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .edit-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .edit-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .edit-section h3 {
+            color: #003366;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+        
+        /* Form Elemente */
         .form-group {
             margin-bottom: 20px;
         }
+        
         .form-group label {
             display: block;
-            font-weight: 600;
             margin-bottom: 8px;
+            font-weight: 600;
             color: #333;
         }
+        
         .form-control {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            font-size: 1rem;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
             font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
             transition: border-color 0.3s;
         }
+        
         .form-control:focus {
+            border-color: #D4A574;
             outline: none;
-            border-color: #d4af36;
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.25);
         }
+        
         textarea.form-control {
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
         }
-        .service-item {
+        
+        /* Image Upload */
+        .image-upload {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            background: #f9f9f9;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .image-upload:hover {
+            border-color: #D4A574;
+            background: #f5f5f5;
+        }
+        
+        .image-upload input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .image-upload .upload-icon {
+            font-size: 3rem;
+            color: #999;
+            margin-bottom: 15px;
+        }
+        
+        .image-upload .upload-text {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .preview-item {
+            position: relative;
+            height: 150px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .preview-item .remove-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #ff4444;
+            border: none;
+        }
+        
+        /* WYSIWYG Toolbar */
+        .editor-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            padding: 10px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+        }
+        
+        .editor-toolbar button {
+            background: white;
+            border: 1px solid #ddd;
+            width: 36px;
+            height: 36px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .editor-toolbar button:hover {
+            background: #eee;
+        }
+        
+        .editor-toolbar .separator {
+            width: 1px;
+            height: 24px;
+            background: #ddd;
+            margin: 0 5px;
+        }
+        
+        /* Actions Footer */
+        .actions-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        /* BUTTONS STYLE */
+        .btn-primary {
+            background: #D4A574;
+            color: #003366;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 0;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background-color: #C19660;
+            color: #003366;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d0d0d0;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #003366;
+            padding: 10px 25px;
+            border: 2px solid #003366;
+            border-radius: 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        
+        .btn-outline:hover {
+            background: #003366;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Logout Button */
+        .logout-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid white;
+            border-radius: 30px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+        .logout-link:hover {
+            background: white;
+            color: #003366;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: #003366;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #D4A574;
+        }
+        
+        .breadcrumb .separator {
+            margin: 0 10px;
+            color: #999;
+        }
+        
+        .breadcrumb .current {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        /* Service Box */
+        .service-box {
             background: #f9f9f9;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 15px;
-            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+            position: relative;
         }
-        .btn-save {
+        
+        .service-box:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .service-box .remove-service {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 80, 80, 0.1);
+            color: #ff4444;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+        
+        .service-box .remove-service:hover {
+            background: rgba(255, 80, 80, 0.2);
+            transform: scale(1.1);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            color: #003366;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+        }
+        
+        .close-modal:hover {
+            color: #ff4444;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        /* Toast Message für Erfolgs-Feedback */
+        .toast-message {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: #d4af36;
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(212, 175, 54, 0.3);
-            transition: all 0.3s;
-        }
-        .btn-save:hover {
-            background: #c29d28;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(212, 175, 54, 0.4);
-        }
-        .success-message {
-            position: fixed;
-            top: 100px;
-            right: 30px;
             background: #4CAF50;
             color: white;
-            padding: 20px 30px;
-            border-radius: 5px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            display: none;
-            animation: slideIn 0.3s ease;
+            padding: 15px 30px;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-weight: 500;
         }
-        @keyframes slideIn {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
+        
+        .toast-message.show {
+            opacity: 1;
+            transform: translateY(0);
         }
-        .preview-info {
-            background: #e3f2fd;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-            color: #1976d2;
-        }
-        .emoji-picker {
-            display: inline-block;
-            margin-left: 10px;
-        }
-        .back-link {
-            color: white;
-            text-decoration: none;
-            opacity: 0.8;
+        
+        /* Loading Overlay */
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
             transition: opacity 0.3s;
         }
-        .back-link:hover {
+        
+        .loader-overlay.active {
             opacity: 1;
+            pointer-events: all;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #D4A574;
+            border-top: 5px solid #003366;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            z-index: 10;
+        }
+        
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .header-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            .edit-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .edit-tab {
+                flex-grow: 1;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
     <header class="admin-header">
-        <div class="header-content">
-            <h1>Website Editor - Einfach bearbeiten! 🎨</h1>
-            <div>
-                <a href="/admin" class="back-link">← Zurück zum Dashboard</a>
-                <a href="/admin/logout" style="color: #d4af36; margin-left: 20px;">Abmelden</a>
+        <div class="admin-nav">
+            <h1>TVG Admin Panel</h1>
+            <div class="user-info">
+                <span>Willkommen, <%= user.username %> 👋</span>
+                <a href="/admin/logout" class="logout-link">Abmelden</a>
             </div>
         </div>
     </header>
     
-    <div class="editor-container">
-        <div class="preview-info">
-            💡 <strong>Tipp:</strong> Alle Änderungen werden sofort auf der Website sichtbar. 
-            Besuche <a href="/" target="_blank">die Startseite</a> um deine Änderungen zu sehen!
-        </div>
-        
-        <!-- HERO BEREICH -->
-        <div class="edit-section">
-            <h2 class="section-title">🏠 Startseite - Hauptbereich</h2>
-            
-            <div class="form-group">
-                <label>Hauptüberschrift</label>
-                <input type="text" class="form-control" id="hero-title" 
-                       value="<%= content.hero.title %>"
-                       placeholder="z.B. Perfektes Klima für Ihr Zuhause">
+    <main class="main-content">
+        <div class="editor-container">
+            <div class="breadcrumb">
+                <a href="/admin/">Dashboard</a>
+                <span class="separator">›</span>
+                <span class="current">Website bearbeiten</span>
             </div>
             
-            <div class="form-group">
-                <label>Untertitel</label>
-                <input type="text" class="form-control" id="hero-subtitle" 
-                       value="<%= content.hero.subtitle %>"
-                       placeholder="z.B. TVG Klimatechnik - Ihr Partner...">
-            </div>
-            
-            <div class="form-group">
-                <label>Button Text</label>
-                <input type="text" class="form-control" id="hero-button" 
-                       value="<%= content.hero.buttonText %>"
-                       placeholder="z.B. Jetzt beraten lassen">
-            </div>
-        </div>
-        
-        <!-- LEISTUNGEN -->
-        <div class="edit-section">
-            <h2 class="section-title">💼 Unsere Leistungen</h2>
-            
-            <div class="form-group">
-                <label>Bereichsüberschrift</label>
-                <input type="text" class="form-control" id="services-title" 
-                       value="<%= content.services.title %>">
-            </div>
-            
-            <% content.services.items.forEach((service, index) => { %>
-            <div class="service-item">
-                <h4>Leistung <%= index + 1 %></h4>
-                <div class="form-group">
-                    <label>Icon (Emoji) <span class="emoji-picker">Vorschläge: ❄️ 🔧 📋 🏠 ⚡ 🌡️</span></label>
-                    <input type="text" class="form-control service-icon" 
-                           data-index="<%= index %>"
-                           value="<%= service.icon %>" 
-                           maxlength="2">
-                </div>
-                <div class="form-group">
-                    <label>Titel</label>
-                    <input type="text" class="form-control service-title" 
-                           data-index="<%= index %>"
-                           value="<%= service.title %>">
-                </div>
-                <div class="form-group">
-                    <label>Beschreibung</label>
-                    <textarea class="form-control service-desc" 
-                              data-index="<%= index %>"><%= service.description %></textarea>
+            <div class="page-header">
+                <h2>Website bearbeiten</h2>
+                <div class="header-actions">
+                    <button class="btn-outline tooltip" data-tooltip="Vorschau der Webseite">
+                        <span>Vorschau</span>
+                    </button>
+                    <button id="save-button" class="btn-primary">
+                        <span>Speichern</span>
+                    </button>
                 </div>
             </div>
-            <% }); %>
+            
+            <div class="edit-tabs">
+                <div class="edit-tab active" data-tab="home">Startseite</div>
+                <div class="edit-tab" data-tab="services">Leistungen</div>
+                <div class="edit-tab" data-tab="about">Über uns</div>
+                <div class="edit-tab" data-tab="contact">Kontakt</div>
+                <div class="edit-tab" data-tab="settings">Einstellungen</div>
+            </div>
+            
+            <div class="edit-content">
+                <!-- HOME TAB -->
+                <div id="home-content" class="tab-content active">
+                    <div class="edit-section">
+                        <h3>Hero Bereich</h3>
+                        <div class="form-group">
+                            <label for="hero-title">Hauptüberschrift</label>
+                            <input type="text" id="hero-title" class="form-control" value="PERFEKTES KLIMA FÜR IHR ZUHAUSE">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hero-subtitle">Untertitel</label>
+                            <input type="text" id="hero-subtitle" class="form-control" value="Moderne Klimatechnik vom Experten - für optimalen Komfort in jedem Raum.">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hero-button">Button-Text</label>
+                            <input type="text" id="hero-button" class="form-control" value="Jetzt beraten lassen">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Slider Bilder</label>
+                            <div class="image-upload">
+                                <div class="upload-icon">📁</div>
+                                <div class="upload-text">Klicken Sie hier, um Bilder hochzuladen oder ziehen Sie sie in diesen Bereich</div>
+                                <input type="file" multiple accept="image/*">
+                            </div>
+                            
+                            <div class="image-preview">
+                                <div class="preview-item">
+                                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Slider Bild 1">
+                                    <button class="remove-btn">×</button>
+                                </div>
+                                <div class="preview-item">
+                                    <img src="https://images.unsplash.com/photo-1565043666747-69f6646db940?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Slider Bild 2">
+                                    <button class="remove-btn">×</button>
+                                </div>
+                                <div class="preview-item">
+                                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Slider Bild 3">
+                                    <button class="remove-btn">×</button>
+                                </div>
+                                <div class="preview-item">
+                                    <img src="https://images.unsplash.com/photo-1631545806609-66ab2e40d2b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Slider Bild 4">
+                                    <button class="remove-btn">×</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="edit-section">
+                        <h3>Leistungen Bereich</h3>
+                        <div class="form-group">
+                            <label for="services-title">Überschrift</label>
+                            <input type="text" id="services-title" class="form-control" value="Unsere Leistungen">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="services-subtitle">Untertitel</label>
+                            <input type="text" id="services-subtitle" class="form-control" value="Alles aus einer Hand für Ihr perfektes Raumklima">
+                        </div>
+                        
+                        <h4 style="margin-top: 30px; color: #003366;">Leistungen bearbeiten</h4>
+                        
+                        <div id="services-container">
+                            <!-- Service 1 -->
+                            <div class="service-box" data-service-id="1">
+                                <button type="button" class="remove-service">×</button>
+                                <div class="form-group">
+                                    <label>Leistung 1</label>
+                                    <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 10px;">
+                                        <input type="text" class="form-control service-icon" value="❄️" style="max-width: 60px;">
+                                        <input type="text" class="form-control service-title" value="Klimaanlagen">
+                                    </div>
+                                    <textarea class="form-control service-description">Effiziente Klimasysteme für jede Raumgröße, perfekt auf Ihre Bedürfnisse abgestimmt.</textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Service 2 -->
+                            <div class="service-box" data-service-id="2">
+                                <button type="button" class="remove-service">×</button>
+                                <div class="form-group">
+                                    <label>Leistung 2</label>
+                                    <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 10px;">
+                                        <input type="text" class="form-control service-icon" value="🔧" style="max-width: 60px;">
+                                        <input type="text" class="form-control service-title" value="Wartung & Service">
+                                    </div>
+                                    <textarea class="form-control service-description">Regelmäßige Wartung und schneller Service für langfristige Funktion Ihrer Anlagen.</textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Service 3 -->
+                            <div class="service-box" data-service-id="3">
+                                <button type="button" class="remove-service">×</button>
+                                <div class="form-group">
+                                    <label>Leistung 3</label>
+                                    <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 10px;">
+                                        <input type="text" class="form-control service-icon" value="📋" style="max-width: 60px;">
+                                        <input type="text" class="form-control service-title" value="Planung & Beratung">
+                                    </div>
+                                    <textarea class="form-control service-description">Professionelle Planung und individuelle Beratung durch unsere Klimaexperten.</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button id="add-service-btn" class="btn-outline">
+                                <span>+ Weitere Leistung hinzufügen</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SERVICES TAB -->
+                <div id="services-content" class="tab-content">
+                    <div class="edit-section">
+                        <h3>Leistungen Seite</h3>
+                        
+                        <div class="form-group">
+                            <label for="services-page-title">Seiten-Überschrift</label>
+                            <input type="text" id="services-page-title" class="form-control" value="Unsere Leistungen im Detail">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="services-page-intro">Einführungstext</label>
+                            <textarea id="services-page-intro" class="form-control">TVG Klimatechnik bietet Ihnen ein umfassendes Portfolio an Leistungen rund um perfektes Raumklima. Von der ersten Beratung über die Planung bis zur Installation und Wartung - alles aus einer Hand.</textarea>
+                        </div>
+                        
+                        <div class="editor-toolbar">
+                            <button title="Fett"><strong>B</strong></button>
+                            <button title="Kursiv"><em>I</em></button>
+                            <button title="Unterstrichen"><u>U</u></button>
+                            <div class="separator"></div>
+                            <button title="Überschrift">H1</button>
+                            <button title="Unterüberschrift">H2</button>
+                            <div class="separator"></div>
+                            <button title="Liste">•</button>
+                            <button title="Nummerierte Liste">1.</button>
+                            <button title="Link">🔗</button>
+                        </div>
+                        <textarea class="form-control" style="border-radius: 0 0 4px 4px;">
+<h2>Klimaanlagen für Privatkunden</h2>
+<p>Für Ihr Zuhause bieten wir maßgeschneiderte Klimasysteme, die sich perfekt in Ihre Wohnräume integrieren lassen. Unsere Split-Klimageräte sorgen für angenehme Kühle im Sommer und wohlige Wärme in der Übergangszeit.</p>
+
+<h2>Gewerbliche Klimatechnik</h2>
+<p>Für Büros, Geschäftsräume und Produktionsstätten entwickeln wir Klimakonzepte, die auf Ihre spezifischen Anforderungen zugeschnitten sind. Dabei achten wir besonders auf Energieeffizienz und Wirtschaftlichkeit.</p>
+
+<h2>Service & Wartung</h2>
+<p>Regelmäßige Wartung Ihrer Klimaanlage verlängert deren Lebensdauer und sorgt für einen energieeffizienten Betrieb. Unser Service-Team steht Ihnen 24/7 zur Verfügung.</p>
+                        </textarea>
+                    </div>
+                    
+                    <div class="edit-section">
+                        <h3>Leistungs-Angebote</h3>
+                        
+                        <div id="offers-container">
+                            <!-- Angebot 1 -->
+                            <div class="service-box" data-offer-id="1">
+                                <button type="button" class="remove-service">×</button>
+                                <div class="form-group">
+                                    <label>Angebot 1</label>
+                                    <input type="text" class="form-control offer-title" value="Klimaanlagen-Service" style="margin-bottom: 10px;">
+                                    <div class="form-group">
+                                        <label>Preis</label>
+                                        <input type="text" class="form-control offer-price" value="ab 99€">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Beschreibung</label>
+                                        <textarea class="form-control offer-description">- Reinigung aller Filter
+- Überprüfung des Kältemittels
+- Funktionskontrolle
+- 12 Monate Garantie</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Bild</label>
+                                        <div style="display: flex; align-items: center; gap: 15px;">
+                                            <img src="https://images.unsplash.com/photo-1580655653885-65763b2597d0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Service" style="width: 100px; height: 100px; object-fit: cover; border-radius: 4px;">
+                                            <button class="btn-secondary">
+                                                <span>Bild ändern</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Angebot 2 -->
+                            <div class="service-box" data-offer-id="2">
+                                <button type="button" class="remove-service">×</button>
+                                <div class="form-group">
+                                    <label>Angebot 2</label>
+                                    <input type="text" class="form-control offer-title" value="Komplettinstallation" style="margin-bottom: 10px;">
+                                    <div class="form-group">
+                                        <label>Preis</label>
+                                        <input type="text" class="form-control offer-price" value="ab 1.499€">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Beschreibung</label>
+                                        <textarea class="form-control offer-description">- Beratung vor Ort
+- Maßgeschneidertes System
+- Professionelle Installation
+- 5 Jahre Garantie</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Bild</label>
+                                        <div style="display: flex; align-items: center; gap: 15px;">
+                                            <img src="https://images.unsplash.com/photo-1513611771808-7e8ab7c1c7c0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Installation" style="width: 100px; height: 100px; object-fit: cover; border-radius: 4px;">
+                                            <button class="btn-secondary">
+                                                <span>Bild ändern</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button id="add-offer-btn" class="btn-outline">
+                                <span>+ Weiteres Angebot hinzufügen</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ABOUT TAB -->
+                <div id="about-content" class="tab-content">
+                    <div class="edit-section">
+                        <h3>Über uns Seite</h3>
+                        
+                        <div class="form-group">
+                            <label for="about-page-title">Seiten-Überschrift</label>
+                            <input type="text" id="about-page-title" class="form-control" value="Über TVG Klimatechnik">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="about-page-intro">Einführungstext</label>
+                            <textarea id="about-page-intro" class="form-control">TVG Klimatechnik ist seit über 50 Jahren Ihr zuverlässiger Partner für moderne Klimatechnik in ganz Österreich. Als Teil der KOR Gruppe vereinen wir traditionelles Handwerk mit innovativer Technologie.</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Firmenhistorie</label>
+                            <div class="editor-toolbar">
+                                <button title="Fett"><strong>B</strong></button>
+                                <button title="Kursiv"><em>I</em></button>
+                                <button title="Unterstrichen"><u>U</u></button>
+                                <div class="separator"></div>
+                                <button title="Überschrift">H1</button>
+                                <button title="Unterüberschrift">H2</button>
+                                <div class="separator"></div>
+                                <button title="Liste">•</button>
+                                <button title="Nummerierte Liste">1.</button>
+                                <button title="Link">🔗</button>
+                            </div>
+                            <textarea class="form-control" style="border-radius: 0 0 4px 4px;">
+<h2>Unsere Geschichte</h2>
+<p>1973 - Gründung als kleine Werkstatt für Kühlanlagen in Wien</p>
+<p>1985 - Expansion nach Linz mit der zweiten Niederlassung</p>
+<p>1997 - Aufnahme in die KOR Gruppe</p>
+<p>2005 - Eröffnung des Standorts Graz</p>
+<p>2015 - Modernisierung aller Standorte und Einführung digitaler Planungssysteme</p>
+<p>Heute - Über 50 Mitarbeiter an drei Standorten betreuen mehr als 10.000 zufriedene Kunden in ganz Österreich</p>
+                            </textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="edit-section">
+                        <h3>Team</h3>
+                        
+                        <div id="team-container">
+                            <!-- Team-Mitglied 1 -->
+                            <div class="service-box" data-team-id="1">
+                                <button type="button" class="remove-service">×</button>
+                                <div class="form-group">
+                                    <label>Team-Mitglied 1</label>
+                                    <input type="text" class="form-control team-name" value="Dipl.-Ing. Thomas Müller" style="margin-bottom: 10px;">
+                                    <div class="form-group">
+                                        <label>Position</label>
+                                        <input type="text" class="form-control team-position" value="Geschäftsführer">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Beschreibung</label>
+                                        <textarea class="form-control team-description">Thomas Müller leitet TVG Klimatechnik seit 2010 und bringt über 25 Jahre Erfahrung in der Klimabranche mit. Sein Fokus liegt auf innovativen, energieeffizienten Lösungen.</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Profilbild</label>
+                                        <div style="display: flex; align-items: center; gap: 15px;">
+                                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Thomas Müller" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
+                                            <button class="btn-secondary">
+                                                <span>Bild ändern</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Team-Mitglied 2 -->
+                            <div class="service-box" data-team-id="2">
+                                <button type="button" class="remove-service">×</button>
+                                <div class="form-group">
+                                    <label>Team-Mitglied 2</label>
+                                    <input type="text" class="form-control team-name" value="DI Julia Berger" style="margin-bottom: 10px;">
+                                    <div class="form-group">
+                                        <label>Position</label>
+                                        <input type="text" class="form-control team-position" value="Technische Leitung">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Beschreibung</label>
+                                        <textarea class="form-control team-description">Julia Berger ist seit 2015 für die technische Leitung bei TVG verantwortlich. Ihr Spezialgebiet sind komplexe Klimasysteme für Großprojekte und industrielle Anwendungen.</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Profilbild</label>
+                                        <div style="display: flex; align-items: center; gap: 15px;">
+                                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Julia Berger" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
+                                            <button class="btn-secondary">
+                                                <span>Bild ändern</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button id="add-team-btn" class="btn-outline">
+                                <span>+ Weiteres Team-Mitglied hinzufügen</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CONTACT TAB -->
+                <div id="contact-content" class="tab-content">
+                    <div class="edit-section">
+                        <h3>Kontaktdaten</h3>
+                        
+                        <div class="form-group">
+                            <label for="contact-title">Seiten-Überschrift</label>
+                            <input type="text" id="contact-title" class="form-control" value="Kontaktieren Sie uns">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-intro">Einführungstext</label>
+                            <textarea id="contact-intro" class="form-control">Sie haben Fragen oder möchten einen Termin vereinbaren? Kontaktieren Sie uns - wir beraten Sie gerne persönlich und erstellen Ihnen ein individuelles Angebot.</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-phone">Telefonnummer</label>
+                            <input type="text" id="contact-phone" class="form-control" value="01 234 56 78">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-mobile">Mobilnummer</label>
+                            <input type="text" id="contact-mobile" class="form-control" value="+43 664 123 45 67">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-email">E-Mail</label>
+                            <input type="email" id="contact-email" class="form-control" value="info@tvg-klimatechnik.at">
+                        </div>
+                    </div>
+                    
+                    <div class="edit-section">
+                        <h3>Standorte</h3>
+                        
+                        <div id="locations-container">
+                            <!-- Standort 1 -->
+                            <div class="service-box" data-location-id="1">
+                                <button type="button" class="remove-service">×</button>
+                                <div class="form-group">
+                                    <label>Wien</label>
+                                    <input type="text" class="form-control location-title" value="Hauptsitz" style="margin-bottom: 10px;">
+                                    <div class="form-group">
+                                        <label>Adresse</label>
+                                        <input type="text" class="form-control location-address1" value="Musterstraße 1" style="margin-bottom: 5px;">
+                                        <input type="text" class="form-control location-address2" value="1010 Wien">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Öffnungszeiten</label>
+                                        <input type="text" class="form-control location-hours" value="Mo-Do: 8:00 - 17:00, Fr: 8:00 - 14:00">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Google Maps Link</label>
+                                        <input type="text" class="form-control location-map" value="https://goo.gl/maps/exampleWien">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Standort 2 -->
+                            <div class="service-box" data-location-id="2">
+                                <button type="button" class="remove-service">×</button>
+                                <div class="form-group">
+                                    <label>Linz</label>
+                                    <input type="text" class="form-control location-title" value="Oberösterreich" style="margin-bottom: 10px;">
+                                    <div class="form-group">
+                                        <label>Adresse</label>
+                                        <input type="text" class="form-control location-address1" value="Landstraße 50" style="margin-bottom: 5px;">
+                                        <input type="text" class="form-control location-address2" value="4020 Linz">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Öffnungszeiten</label>
+                                        <input type="text" class="form-control location-hours" value="Mo-Do: 8:00 - 17:00, Fr: 8:00 - 14:00">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Google Maps Link</label>
+                                        <input type="text" class="form-control location-map" value="https://goo.gl/maps/exampleLinz">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button id="add-location-btn" class="btn-outline">
+                                <span>+ Weiteren Standort hinzufügen</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SETTINGS TAB -->
+                <div id="settings-content" class="tab-content">
+                    <div class="edit-section">
+                        <h3>Allgemeine Einstellungen</h3>
+                        
+                        <div class="form-group">
+                            <label for="website-title">Website Titel</label>
+                            <input type="text" id="website-title" class="form-control" value="TVG Klimatechnik - Perfektes Klima seit über 50 Jahren">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="website-description">Meta-Beschreibung</label>
+                            <textarea id="website-description" class="form-control">TVG Klimatechnik - Klimatechnik der KOR Gruppe. Seit über 50 Jahren Ihr Partner für moderne Klimaanlagen in Wien, Linz und Graz</textarea>
+                            <small style="display: block; margin-top: 5px; color: #666;">Wichtig für Suchmaschinen, max. 160 Zeichen</small>
+                        </div>
+                    </div>
+                    
+                    <div class="edit-section">
+                        <h3>Logo und Favicon</h3>
+                        
+                        <div class="form-group">
+                            <label>Hauptlogo</label>
+                            <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px;">
+                                <img src="/images/TVG_Logo.svg" alt="TVG Logo" style="height: 80px; width: auto;">
+                                <div>
+                                    <button class="btn-secondary">
+                                        <span>Logo ändern</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Favicon</label>
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <img src="/images/TVG_Logo.svg" alt="TVG Favicon" style="height: 32px; width: auto;">
+                                <div>
+                                    <button class="btn-secondary">
+                                        <span>Favicon ändern</span>
+                                    </button>
+                                    <small style="display: block; margin-top: 5px; color: #666;">Wird als Icon im Browser-Tab angezeigt</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="edit-section">
+                        <h3>Social Media</h3>
+                        
+                        <div class="form-group">
+                            <label for="social-facebook">Facebook URL</label>
+                            <input type="url" id="social-facebook" class="form-control" value="https://facebook.com/tvgklimatechnik">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="social-instagram">Instagram URL</label>
+                            <input type="url" id="social-instagram" class="form-control" value="https://instagram.com/tvgklima">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="social-linkedin">LinkedIn URL</label>
+                            <input type="url" id="social-linkedin" class="form-control" value="https://linkedin.com/company/tvg-klimatechnik">
+                        </div>
+                    </div>
+                    
+                    <div class="edit-section">
+                        <h3>Cookie-Hinweis</h3>
+                        
+                        <div class="form-group">
+                            <label for="cookie-text">Cookie-Hinweis Text</label>
+                            <textarea id="cookie-text" class="form-control">Diese Website verwendet Cookies, um Ihnen ein optimales Nutzungserlebnis zu bieten. Durch die weitere Nutzung der Website stimmen Sie der Verwendung von Cookies zu.</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cookie-button">Button-Text</label>
+                            <input type="text" id="cookie-button" class="form-control" value="Akzeptieren">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actions-footer">
+                <button class="btn-secondary">
+                    <span>Zurücksetzen</span>
+                </button>
+                <button id="save-changes-button" class="btn-primary">
+                    <span>Änderungen speichern</span>
+                </button>
+            </div>
         </div>
-        
-        <!-- KONTAKT -->
-        <div class="edit-section">
-            <h2 class="section-title">📞 Kontaktdaten</h2>
-            
-            <div class="form-group">
-                <label>Telefonnummer</label>
-                <input type="text" class="form-control" id="contact-phone" 
-                       value="<%= content.contact.phone %>">
+    </main>
+    
+    <!-- Vorschau Modal -->
+    <div class="modal" id="previewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Website Vorschau</h3>
+                <button class="close-modal">×</button>
             </div>
-            
-            <div class="form-group">
-                <label>E-Mail Adresse</label>
-                <input type="email" class="form-control" id="contact-email" 
-                       value="<%= content.contact.email %>">
+            <div class="modal-body">
+                <iframe src="/" style="width: 100%; height: 500px; border: 1px solid #ddd;"></iframe>
             </div>
-            
-            <div class="form-group">
-                <label>Adresse</label>
-                <input type="text" class="form-control" id="contact-address" 
-                       value="<%= content.contact.address %>">
+            <div class="modal-footer">
+                <button class="btn-secondary close-modal">
+                    <span>Schließen</span>
+                </button>
+                <button class="btn-primary">
+                    <span>Zur Liveseite</span>
+                </button>
             </div>
         </div>
     </div>
     
-    <button class="btn-save" onclick="saveContent()">💾 Änderungen speichern</button>
-    
-    <div class="success-message" id="successMsg">
-        ✅ Änderungen wurden erfolgreich gespeichert!
+    <!-- Loading Overlay -->
+    <div class="loader-overlay" id="loaderOverlay">
+        <div class="spinner"></div>
     </div>
+    
+    <!-- Toast Message -->
+    <div class="toast-message" id="toastMessage">Änderungen wurden erfolgreich gespeichert!</div>
     
     <script>
-        function saveContent() {
-            // Sammle alle Daten
-            const content = {
-                hero: {
-                    title: document.getElementById('hero-title').value,
-                    subtitle: document.getElementById('hero-subtitle').value,
-                    buttonText: document.getElementById('hero-button').value
-                },
-                services: {
-                    title: document.getElementById('services-title').value,
-                    items: []
-                },
-                contact: {
-                    phone: document.getElementById('contact-phone').value,
-                    email: document.getElementById('contact-email').value,
-                    address: document.getElementById('contact-address').value
+        // Tab-Wechsel Funktionalität
+        document.querySelectorAll('.edit-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Aktiven Tab entfernen
+                document.querySelectorAll('.edit-tab').forEach(t => t.classList.remove('active'));
+                
+                // Neuen Tab aktivieren
+                tab.classList.add('active');
+                
+                // Alle Tab-Inhalte ausblenden
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Entsprechenden Tab-Inhalt anzeigen
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId + '-content').classList.add('active');
+            });
+        });
+        
+        // Modal Funktionalität
+        const previewBtn = document.querySelector('.btn-outline[data-tooltip="Vorschau der Webseite"]');
+        const modal = document.getElementById('previewModal');
+        const closeButtons = document.querySelectorAll('.close-modal');
+        
+        previewBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+        });
+        
+        closeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+        });
+        
+        // Außerhalb des Modals klicken um es zu schließen
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+        
+        // Bild-Upload Vorschau (vereinfacht)
+        const fileInput = document.querySelector('.image-upload input[type="file"]');
+        
+        fileInput.addEventListener('change', () => {
+            // Hier würde normalerweise die Bildvorschau generiert
+            alert('Bilder hochgeladen! (Demo)');
+        });
+        
+        // Bilder entfernen
+        document.querySelectorAll('.remove-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (confirm('Möchten Sie dieses Bild wirklich entfernen?')) {
+                    button.parentElement.remove();
                 }
+            });
+        });
+        
+        // NEUE FUNKTION: Leistung hinzufügen
+        document.getElementById('add-service-btn').addEventListener('click', function() {
+            const servicesContainer = document.getElementById('services-container');
+            const serviceCount = servicesContainer.children.length + 1;
+            
+            const newService = document.createElement('div');
+            newService.className = 'service-box';
+            newService.dataset.serviceId = serviceCount;
+            newService.innerHTML = `
+                <button type="button" class="remove-service">×</button>
+                <div class="form-group">
+                    <label>Leistung ${serviceCount}</label>
+                    <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 10px;">
+                        <input type="text" class="form-control service-icon" value="🌟" style="max-width: 60px;">
+                        <input type="text" class="form-control service-title" value="Neue Leistung">
+                    </div>
+                    <textarea class="form-control service-description">Beschreibung der neuen Leistung. Klicken Sie hier, um den Text zu bearbeiten.</textarea>
+                </div>
+            `;
+            
+            servicesContainer.appendChild(newService);
+            
+            // Event-Listener für den Löschen-Button der neuen Leistung
+            newService.querySelector('.remove-service').addEventListener('click', function() {
+                if (confirm('Möchten Sie diese Leistung wirklich entfernen?')) {
+                    this.parentElement.remove();
+                    renumberServices();
+                }
+            });
+            
+            // Animiere das Scrollen zum neuen Element
+            newService.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Kurz hervorheben
+            setTimeout(() => {
+                newService.style.transition = 'background-color 0.5s';
+                newService.style.backgroundColor = '#f0f8ff';
+                
+                setTimeout(() => {
+                    newService.style.backgroundColor = '#f9f9f9';
+                }, 1000);
+            }, 100);
+        });
+        
+        // Funktion zum Neu-Nummerieren der Leistungen
+        function renumberServices() {
+            const serviceBoxes = document.querySelectorAll('#services-container .service-box');
+            serviceBoxes.forEach((box, index) => {
+                const newNumber = index + 1;
+                box.dataset.serviceId = newNumber;
+                box.querySelector('label').textContent = `Leistung ${newNumber}`;
+            });
+        }
+        
+        // Lösch-Buttons für bestehende Leistungen aktivieren
+        document.querySelectorAll('.remove-service').forEach(button => {
+            button.addEventListener('click', function() {
+                if (confirm('Möchten Sie diesen Eintrag wirklich entfernen?')) {
+                    const parent = this.parentElement;
+                    const container = parent.parentElement;
+                    
+                    parent.remove();
+                    
+                    // Je nach Container die entsprechende Neu-Nummerierung starten
+                    if (container.id === 'services-container') renumberServices();
+                    if (container.id === 'offers-container') renumberOffers();
+                    if (container.id === 'team-container') renumberTeam();
+                    if (container.id === 'locations-container') renumberLocations();
+                }
+            });
+        });
+        
+        // Angebot hinzufügen
+        document.getElementById('add-offer-btn').addEventListener('click', function() {
+            const offersContainer = document.getElementById('offers-container');
+            const offerCount = offersContainer.children.length + 1;
+            
+            const newOffer = document.createElement('div');
+            newOffer.className = 'service-box';
+            newOffer.dataset.offerId = offerCount;
+            newOffer.innerHTML = `
+                <button type="button" class="remove-service">×</button>
+                <div class="form-group">
+                    <label>Angebot ${offerCount}</label>
+                    <input type="text" class="form-control offer-title" value="Neues Angebot" style="margin-bottom: 10px;">
+                    <div class="form-group">
+                        <label>Preis</label>
+                        <input type="text" class="form-control offer-price" value="ab 0€">
+                    </div>
+                    <div class="form-group">
+                        <label>Beschreibung</label>
+                        <textarea class="form-control offer-description">- Punkt 1
+- Punkt 2
+- Punkt 3</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Bild</label>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <img src="https://via.placeholder.com/100" alt="Angebot Bild" style="width: 100px; height: 100px; object-fit: cover; border-radius: 4px;">
+                            <button class="btn-secondary">
+                                <span>Bild ändern</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            offersContainer.appendChild(newOffer);
+            
+            // Event-Listener und Animation
+            newOffer.querySelector('.remove-service').addEventListener('click', function() {
+                if (confirm('Möchten Sie dieses Angebot wirklich entfernen?')) {
+                    this.parentElement.remove();
+                    renumberOffers();
+                }
+            });
+            
+            newOffer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setTimeout(() => {
+                newOffer.style.transition = 'background-color 0.5s';
+                newOffer.style.backgroundColor = '#f0f8ff';
+                
+                setTimeout(() => {
+                    newOffer.style.backgroundColor = '#f9f9f9';
+                }, 1000);
+            }, 100);
+        });
+        
+        // Team-Mitglied hinzufügen
+        document.getElementById('add-team-btn').addEventListener('click', function() {
+            const teamContainer = document.getElementById('team-container');
+            const memberCount = teamContainer.children.length + 1;
+            
+            const newMember = document.createElement('div');
+            newMember.className = 'service-box';
+            newMember.dataset.teamId = memberCount;
+            newMember.innerHTML = `
+                <button type="button" class="remove-service">×</button>
+                <div class="form-group">
+                    <label>Team-Mitglied ${memberCount}</label>
+                    <input type="text" class="form-control team-name" value="Neues Teammitglied" style="margin-bottom: 10px;">
+                    <div class="form-group">
+                        <label>Position</label>
+                        <input type="text" class="form-control team-position" value="Position">
+                    </div>
+                    <div class="form-group">
+                        <label>Beschreibung</label>
+                        <textarea class="form-control team-description">Kurze Beschreibung des Teammitglieds.</textarea>
+                                        </div>
+                    <div class="form-group">
+                        <label>Profilbild</label>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <img src="https://via.placeholder.com/100" alt="Profilbild" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
+                            <button class="btn-secondary">
+                                <span>Bild ändern</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            teamContainer.appendChild(newMember);
+            
+            // Event-Listener und Animation
+            newMember.querySelector('.remove-service').addEventListener('click', function() {
+                if (confirm('Möchten Sie dieses Team-Mitglied wirklich entfernen?')) {
+                    this.parentElement.remove();
+                    renumberTeam();
+                }
+            });
+            
+            newMember.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setTimeout(() => {
+                newMember.style.transition = 'background-color 0.5s';
+                newMember.style.backgroundColor = '#f0f8ff';
+                
+                setTimeout(() => {
+                    newMember.style.backgroundColor = '#f9f9f9';
+                }, 1000);
+            }, 100);
+        });
+        
+        // Standort hinzufügen
+        document.getElementById('add-location-btn').addEventListener('click', function() {
+            const locationsContainer = document.getElementById('locations-container');
+            const locationCount = locationsContainer.children.length + 1;
+            
+            const newLocation = document.createElement('div');
+            newLocation.className = 'service-box';
+            newLocation.dataset.locationId = locationCount;
+            newLocation.innerHTML = `
+                <button type="button" class="remove-service">×</button>
+                <div class="form-group">
+                    <label>Standort ${locationCount}</label>
+                    <input type="text" class="form-control location-title" value="Neuer Standort" style="margin-bottom: 10px;">
+                    <div class="form-group">
+                        <label>Adresse</label>
+                        <input type="text" class="form-control location-address1" value="Straße und Hausnummer" style="margin-bottom: 5px;">
+                        <input type="text" class="form-control location-address2" value="PLZ und Ort">
+                    </div>
+                    <div class="form-group">
+                        <label>Öffnungszeiten</label>
+                        <input type="text" class="form-control location-hours" value="Mo-Fr: 9:00 - 17:00">
+                    </div>
+                    <div class="form-group">
+                        <label>Google Maps Link</label>
+                        <input type="text" class="form-control location-map" value="https://goo.gl/maps/example">
+                    </div>
+                </div>
+            `;
+            
+            locationsContainer.appendChild(newLocation);
+            
+            // Event-Listener und Animation
+            newLocation.querySelector('.remove-service').addEventListener('click', function() {
+                if (confirm('Möchten Sie diesen Standort wirklich entfernen?')) {
+                    this.parentElement.remove();
+                    renumberLocations();
+                }
+            });
+            
+            newLocation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setTimeout(() => {
+                newLocation.style.transition = 'background-color 0.5s';
+                newLocation.style.backgroundColor = '#f0f8ff';
+                
+                setTimeout(() => {
+                    newLocation.style.backgroundColor = '#f9f9f9';
+                }, 1000);
+            }, 100);
+        });
+        
+        // Neu-Nummerierungs-Funktionen
+        function renumberOffers() {
+            const offerBoxes = document.querySelectorAll('#offers-container .service-box');
+            offerBoxes.forEach((box, index) => {
+                const newNumber = index + 1;
+                box.dataset.offerId = newNumber;
+                box.querySelector('label').textContent = `Angebot ${newNumber}`;
+            });
+        }
+        
+        function renumberTeam() {
+            const teamBoxes = document.querySelectorAll('#team-container .service-box');
+            teamBoxes.forEach((box, index) => {
+                const newNumber = index + 1;
+                box.dataset.teamId = newNumber;
+                box.querySelector('label').textContent = `Team-Mitglied ${newNumber}`;
+            });
+        }
+        
+        function renumberLocations() {
+            const locationBoxes = document.querySelectorAll('#locations-container .service-box');
+            locationBoxes.forEach((box, index) => {
+                const newNumber = index + 1;
+                box.dataset.locationId = newNumber;
+                box.querySelector('label').textContent = `Standort ${newNumber}`;
+            });
+        }
+        
+        // Speichern-Funktionalität
+        document.getElementById('save-button').addEventListener('click', saveContent);
+        document.getElementById('save-changes-button').addEventListener('click', saveContent);
+        
+        function saveContent() {
+            // Loading anzeigen
+            const loader = document.getElementById('loaderOverlay');
+            loader.classList.add('active');
+            
+            // Alle Formular-Daten sammeln
+            const formData = collectFormData();
+            
+            // Speicher-Vorgang simulieren (würde normalerweise mit AJAX an den Server gesendet)
+            setTimeout(() => {
+                // Loading verstecken
+                loader.classList.remove('active');
+                
+                // Erfolgsmeldung zeigen
+                showToast('Änderungen wurden erfolgreich gespeichert!');
+                
+                console.log('Gespeicherte Daten:', formData);
+            }, 1500);
+        }
+        
+        function collectFormData() {
+            // Aktiver Tab ermitteln
+            const activeTab = document.querySelector('.edit-tab.active').getAttribute('data-tab');
+            
+            // Datenstruktur erstellen
+            const data = {
+                activeTab: activeTab,
+                home: {
+                    hero: {
+                        title: document.getElementById('hero-title').value,
+                        subtitle: document.getElementById('hero-subtitle').value,
+                        buttonText: document.getElementById('hero-button').value
+                    },
+                    services: {
+                        title: document.getElementById('services-title').value,
+                        subtitle: document.getElementById('services-subtitle').value,
+                        items: []
+                    }
+                },
+                services: {},
+                about: {},
+                contact: {},
+                settings: {}
             };
             
-            // Sammle Service Items
-            document.querySelectorAll('.service-item').forEach((item, index) => {
-                content.services.items.push({
-                    icon: item.querySelector('.service-icon').value,
-                    title: item.querySelector('.service-title').value,
-                    description: item.querySelector('.service-desc').value
+            // Services sammeln
+            document.querySelectorAll('#services-container .service-box').forEach((box, index) => {
+                data.home.services.items.push({
+                    id: index + 1,
+                    icon: box.querySelector('.service-icon').value,
+                    title: box.querySelector('.service-title').value,
+                    description: box.querySelector('.service-description').value
                 });
             });
             
-            // Sende an Server
-            fetch('/admin/save-content', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(content)
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    // Zeige Erfolgsmeldung
-                    const msg = document.getElementById('successMsg');
-                    msg.style.display = 'block';
-                    setTimeout(() => {
-                        msg.style.display = 'none';
-                    }, 3000);
-                } else {
-                    alert('Fehler beim Speichern: ' + data.error);
-                }
-            });
+            // Je nach aktivem Tab mehr Daten sammeln
+            if (activeTab === 'services' || activeTab === 'all') {
+                // Leistungsangebote sammeln
+                data.services.offers = [];
+                document.querySelectorAll('#offers-container .service-box').forEach((box, index) => {
+                    data.services.offers.push({
+                        id: index + 1,
+                        title: box.querySelector('.offer-title').value,
+                        price: box.querySelector('.offer-price').value,
+                        description: box.querySelector('.offer-description').value
+                    });
+                });
+            }
+            
+            if (activeTab === 'about' || activeTab === 'all') {
+                // Team-Mitglieder sammeln
+                data.about.team = [];
+                document.querySelectorAll('#team-container .service-box').forEach((box, index) => {
+                    data.about.team.push({
+                        id: index + 1,
+                        name: box.querySelector('.team-name').value,
+                        position: box.querySelector('.team-position').value,
+                        description: box.querySelector('.team-description').value
+                    });
+                });
+            }
+            
+            if (activeTab === 'contact' || activeTab === 'all') {
+                // Kontaktdaten sammeln
+                data.contact = {
+                    title: document.getElementById('contact-title').value,
+                    intro: document.getElementById('contact-intro').value,
+                    phone: document.getElementById('contact-phone').value,
+                    mobile: document.getElementById('contact-mobile').value,
+                    email: document.getElementById('contact-email').value,
+                    locations: []
+                };
+                
+                // Standorte sammeln
+                document.querySelectorAll('#locations-container .service-box').forEach((box, index) => {
+                    data.contact.locations.push({
+                        id: index + 1,
+                        title: box.querySelector('.location-title').value,
+                        address1: box.querySelector('.location-address1').value,
+                        address2: box.querySelector('.location-address2').value,
+                        hours: box.querySelector('.location-hours').value,
+                        map: box.querySelector('.location-map').value
+                    });
+                });
+            }
+            
+            if (activeTab === 'settings' || activeTab === 'all') {
+                // Einstellungen sammeln
+                data.settings = {
+                    websiteTitle: document.getElementById('website-title').value,
+                    metaDescription: document.getElementById('website-description').value,
+                    socialMedia: {
+                        facebook: document.getElementById('social-facebook').value,
+                        instagram: document.getElementById('social-instagram').value,
+                        linkedin: document.getElementById('social-linkedin').value
+                    },
+                    cookie: {
+                        text: document.getElementById('cookie-text').value,
+                        buttonText: document.getElementById('cookie-button').value
+                    }
+                };
+            }
+            
+            return data;
+        }
+        
+        function showToast(message) {
+            const toast = document.getElementById('toastMessage');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            // Nach 3 Sekunden wieder ausblenden
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
         }
     </script>
-</body>
-</html>

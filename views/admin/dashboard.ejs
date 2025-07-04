@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %> - TVG Klimatechnik</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -17,6 +17,8 @@
             color: white;
             padding: 20px 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 100;
         }
         .admin-nav {
             max-width: 1200px;
@@ -26,71 +28,137 @@
             align-items: center;
             padding: 0 20px;
         }
+        .admin-nav h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .main-content {
+            padding-top: 40px;
+        }
+        
         .dashboard-container {
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 0 auto;
             padding: 0 20px;
         }
         .welcome-section {
             background: white;
-            padding: 40px;
+            padding: 50px 40px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             text-align: center;
         }
         .welcome-section h2 {
             color: #003366;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .welcome-section p {
+            color: #666;
+            font-size: 1.2rem;
+            margin: 0;
         }
         .action-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
         }
         .action-card {
             background: white;
-            padding: 30px;
+            padding: 40px 30px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
+            transition: all 0.3s ease;
             text-decoration: none;
             color: inherit;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 340px; /* ERHÖHT für mehr Platz */
         }
+        
         .action-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,51,102,0.15);
+            border-color: #003366;
         }
+        
         .action-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
         }
+        
         .action-card h3 {
             color: #003366;
             margin-bottom: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
         }
         .action-card p {
             color: #666;
-            margin: 0;
+            margin: 0 0 30px 0; /* MEHR ABSTAND zum Button */
+            flex-grow: 1;
+            font-size: 1rem;
+            line-height: 1.5;
         }
+        
+        /* BUTTON STYLE - SIMPEL UND KLAR */
         .btn-primary {
-            background: #d4af36;
-            color: white;
+            background: #D4A574;
+            color: #003366;
             padding: 12px 30px;
             border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 0;
+            font-size: 0.9rem;
+            font-weight: 700;
             text-decoration: none;
             display: inline-block;
-            margin-top: 15px;
-            transition: all 0.3s;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            min-width: 200px;
+            margin-top: auto; /* BUTTON IMMER AM ENDE */
         }
+        
+        /* HOVER */
         .btn-primary:hover {
-            background: #c29d28;
+            background-color: #C19660;
+            color: #003366;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .logout-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid white;
+            border-radius: 30px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+        .logout-link:hover {
+            background: white;
+            color: #003366;
         }
     </style>
 </head>
@@ -98,41 +166,49 @@
     <header class="admin-header">
         <div class="admin-nav">
             <h1>TVG Admin Panel</h1>
-            <div>
+            <div class="user-info">
                 <span>Willkommen, <%= user.username %> 👋</span>
-                <a href="/admin/logout" style="color: #d4af36; margin-left: 20px;">Abmelden</a>
+                <a href="/admin/logout" class="logout-link">Abmelden</a>
             </div>
         </div>
     </header>
     
-    <div class="dashboard-container">
-        <div class="welcome-section">
-            <h2>Willkommen im Admin-Bereich!</h2>
-            <p>Hier können Sie Ihre Website ganz einfach bearbeiten - ohne Programmierkenntnisse!</p>
-        </div>
-        
-        <div class="action-cards">
-            <a href="/admin/editor" class="action-card">
-                <div class="action-icon">✏️</div>
-                <h3>Website bearbeiten</h3>
-                <p>Texte, Bilder und Inhalte ändern</p>
-                <span class="btn-primary">Jetzt bearbeiten</span>
-            </a>
+    <main class="main-content">
+        <div class="dashboard-container">
+            <div class="welcome-section">
+                <h2>Willkommen im Admin-Bereich!</h2>
+                <p>Hier können Sie Ihre Website ganz einfach bearbeiten - ohne Programmierkenntnisse!</p>
+            </div>
             
-            <a href="/admin/messages" class="action-card">
-                <div class="action-icon">📧</div>
-                <h3>Nachrichten</h3>
-                <p>Kontaktanfragen verwalten</p>
-                <span class="btn-primary">Nachrichten ansehen</span>
-            </a>
-            
-            <a href="/admin/settings" class="action-card">
-                <div class="action-icon">⚙️</div>
-                <h3>Einstellungen</h3>
-                <p>Allgemeine Einstellungen</p>
-                <span class="btn-primary">Einstellungen öffnen</span>
-            </a>
+            <div class="action-cards">
+                <div class="action-card">
+                    <div class="action-icon">✏️</div>
+                    <h3>Website bearbeiten</h3>
+                    <p>Texte, Bilder und Inhalte ändern</p>
+                    <a href="/admin/editor" class="btn-primary">
+                        <span>Jetzt bearbeiten</span>
+                    </a>
+                </div>
+                
+                <div class="action-card">
+                    <div class="action-icon">📧</div>
+                    <h3>Nachrichten</h3>
+                    <p>Kontaktanfragen verwalten</p>
+                    <a href="/admin/messages" class="btn-primary">
+                        <span>Nachrichten ansehen</span>
+                    </a>
+                </div>
+                
+                <div class="action-card">
+                    <div class="action-icon">⚙️</div>
+                    <h3>Einstellungen</h3>
+                    <p>Allgemeine Einstellungen</p>
+                    <a href="/admin/settings" class="btn-primary">
+                        <span>Einstellungen öffnen</span>
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
 </body>
 </html>
