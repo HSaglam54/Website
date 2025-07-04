@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - TVG Klimatechnik</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+        }
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-logo img {
+            height: 60px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: #d4af36;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .login-btn:hover {
+            background: #c29d28;
+        }
+        .error-msg {
+            background: #ff6b6b;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-logo">
+                <img src="/images/TVG_Logo.svg" alt="TVG Klimatechnik">
+            </div>
+            
+            <h2 style="text-align: center; margin-bottom: 30px;">Admin Bereich</h2>
+            
+            <% if (locals.error) { %>
+                <div class="error-msg"><%= error %></div>
+            <% } %>
+            
+            <form method="POST" action="/admin/login">
+                <div class="form-group">
+                    <label>Benutzername</label>
+                    <input type="text" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Passwort</label>
+                    <input type="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="login-btn">Anmelden</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - TVG Klimatechnik</title>
+    <link rel="icon" type="image/svg+xml" href="/images/TVG_Logo.svg">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* KONTAKT-HEADER MIT CI-BLAU */
+        .contact-header {
+            background: #003366;
+            padding: 160px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* ANIMIERTER HINTERGRUND */
+        .contact-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212,175,54,0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+        }
+        
+        .contact-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .contact-header p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            position: relative;
+            z-index: 1;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        /* TABS STYLING MIT ANIMATION */
+        .contact-tabs {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 80px;
+            z-index: 99;
+        }
+        
+        .tab-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+        
+        .tab-btn {
+            padding: 25px 35px; /* GRÖSSER */
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            font-size: 1.1rem; /* GRÖSSERE SCHRIFT */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #333;
+            font-family: 'Outfit', sans-serif;
+            position: relative;
+        }
+        
+        /* ANIMIERTE UNDERLINE - SCHMALER */
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%; /* SCHMALER */
+            width: 0;
+            height: 3px;
+            background: #c6a961;
+            transition: width 0.3s ease;
+        }
+        
+        .tab-btn:hover::after {
+            width: 60%; /* SCHMALER */
+        }
+        
+        .tab-btn.active::after {
+            width: 60%; /* SCHMALER */
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { width: 0; }
+            to { width: 60%; }
+        }
+        
+        .tab-btn:hover {
+            color: #c6a961;
+            transform: translateY(-2px);
+        }
+        
+        .tab-btn.active {
+            color: #c6a961;
+        }
+        
+        /* FORM ANIMATION */
+        .contact-form {
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* INPUT FOCUS ANIMATION */
+        input:focus, select:focus, textarea:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - STANDARD -->
+    <header id="header">
+        <nav>
+            <div class="logo">
+                <a href="/">
+                    <img src="/images/TVG_Logo.svg" alt="TVG Klimatechnik">
+                </a>
+            </div>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/">Start</a></li>
+                <li><a href="/#services">Leistungen</a></li>
+                <li><a href="/#about">Über uns</a></li>
+                <li><a href="/kontakt" class="active">Kontakt</a></li>
+            </ul>
+            
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- KONTAKT-HEADER MIT CI-BLAU UND ANIMATION -->
+    <section class="contact-header">
+        <div class="container">
+            <h1>Wie können wir Ihnen helfen?</h1>
+            <p>Wählen Sie Ihr Anliegen - wir kümmern uns um den Rest</p>
+        </div>
+    </section>
+
+    <!-- TABS - NEUE REIHENFOLGE -->
+    <section class="contact-tabs">
+        <div class="tab-container">
+            <button class="tab-btn active" data-form="allgemein">Allgemeine Anfrage</button>
+            <button class="tab-btn" data-form="beratung">Beratung & Angebot</button>
+            <button class="tab-btn" data-form="service">Service & Wartung</button>
+            <button class="tab-btn" data-form="stoerung">Störungsmeldung</button>
+        </div>
+    </section>
+
+    <!-- Formulare -->
+    <section class="services" style="padding: 60px 0; background: #f9f9f9;">
+        <div class="container">
+            <!-- Allgemeine Anfrage - JETZT ZUERST -->
+            <form id="allgemein-form" class="contact-form active" action="/allgemein" method="POST" style="max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+                <input type="hidden" name="formType" value="allgemein">
+                <h3 style="font-size: 2rem; margin-bottom: 30px; color: #333; font-family: 'Outfit', sans-serif;">Allgemeine Anfrage</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Ihr Name *</label>
+                        <input type="text" name="name" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Ihre E-Mail *</label>
+                        <input type="email" name="email" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Betreff *</label>
+                    <input type="text" name="betreff" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Ihre Nachricht *</label>
+                    <textarea name="nachricht" rows="6" placeholder="Wie können wir Ihnen helfen?" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;"></textarea>
+                </div>
+                
+                <!-- BUTTON EXAKT WIE AUF index.ejs -->
+                <a href="#" onclick="this.closest('form').submit(); return false;" class="btn-primary">
+                    <span>Anfrage senden</span>
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </a>
+            </form>
+
+            <!-- Beratung & Angebot -->
+            <form id="beratung-form" class="contact-form" action="/anfrage" method="POST" style="display: none; max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+                <input type="hidden" name="formType" value="beratung">
+                <h3 style="font-size: 2rem; margin-bottom: 30px; color: #333; font-family: 'Outfit', sans-serif;">Beratung & Angebot</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Ihr Name *</label>
+                        <input type="text" name="name" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Ihre E-Mail *</label>
+                        <input type="email" name="email" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Telefonnummer</label>
+                        <input type="tel" name="telefon" style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">PLZ & Ort *</label>
+                        <input type="text" name="ort" placeholder="z.B. 1010 Wien" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Art der Immobilie *</label>
+                        <select name="immobilie" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                            <option value="">Bitte wählen</option>
+                            <option value="wohnung">Wohnung</option>
+                            <option value="haus">Einfamilienhaus</option>
+                            <option value="buero">Büro</option>
+                            <option value="gewerbe">Gewerbe</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Ihr Anliegen *</label>
+                        <select name="anliegen" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                            <option value="">Bitte wählen</option>
+                            <option value="neuanlage">Neue Klimaanlage</option>
+                            <option value="austausch">Austausch bestehender Anlage</option>
+                            <option value="erweiterung">Erweiterung</option>
+                            <option value="beratung">Allgemeine Beratung</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Ihre Nachricht</label>
+                    <textarea name="nachricht" rows="4" placeholder="Beschreiben Sie Ihr Vorhaben..." style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;"></textarea>
+                </div>
+                
+                <!-- BUTTON EXAKT WIE AUF index.ejs -->
+                <a href="#" onclick="this.closest('form').submit(); return false;" class="btn-primary">
+                    <span>Anfrage senden</span>
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </a>
+            </form>
+
+            <!-- Service & Wartung -->
+            <form id="service-form" class="contact-form" action="/service" method="POST" style="display: none; max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+                <!-- Service Form bleibt gleich -->
+                <input type="hidden" name="formType" value="service">
+                <h3 style="font-size: 2rem; margin-bottom: 30px; color: #333; font-family: 'Outfit', sans-serif;">Service & Wartung</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Ihr Name *</label>
+                        <input type="text" name="name" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Ihre E-Mail *</label>
+                        <input type="email" name="email" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Telefonnummer *</label>
+                        <input type="tel" name="telefon" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Adresse der Anlage *</label>
+                        <input type="text" name="adresse" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Service-Art *</label>
+                        <select name="serviceArt" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                            <option value="">Bitte wählen</option>
+                            <option value="wartung">Regelmäßige Wartung</option>
+                            <option value="reinigung">Reinigung</option>
+                            <option value="reparatur">Reparatur</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Wunschtermin</label>
+                        <input type="date" name="wunschtermin" style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Anmerkungen</label>
+                    <textarea name="anmerkungen" rows="4" placeholder="Haben Sie besondere Wünsche?" style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;"></textarea>
+                </div>
+                
+                <!-- BUTTON EXAKT WIE AUF index.ejs -->
+                <a href="#" onclick="this.closest('form').submit(); return false;" class="btn-primary">
+                    <span>Termin anfragen</span>
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </a>
+            </form>
+
+            <!-- Störungsmeldung -->
+            <form id="stoerung-form" class="contact-form" action="/stoerung" method="POST" style="display: none; max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+                <!-- Störung Form bleibt gleich -->
+                <input type="hidden" name="formType" value="stoerung">
+                <h3 style="font-size: 2rem; margin-bottom: 30px; color: #333; font-family: 'Outfit', sans-serif;">Störungsmeldung</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Ihr Name *</label>
+                        <input type="text" name="name" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Telefonnummer *</label>
+                        <input type="tel" name="telefon" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">E-Mail *</label>
+                        <input type="email" name="email" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Dringlichkeit *</label>
+                        <select name="dringlichkeit" required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;">
+                            <option value="">Bitte wählen</option>
+                            <option value="normal">Normal - innerhalb 3 Tagen</option>
+                            <option value="dringend">Dringend - innerhalb 24h</option>
+                            <option value="notfall">NOTFALL - so schnell wie möglich</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; font-family: 'Outfit', sans-serif;">Fehlerbeschreibung *</label>
+                    <textarea name="fehlerbeschreibung" rows="4" placeholder="Beschreiben Sie das Problem..." required style="width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 5px; font-family: 'Outfit', sans-serif; transition: all 0.3s ease;"></textarea>
+                </div>
+                
+                <!-- BUTTON EXAKT WIE AUF index.ejs -->
+                <a href="#" onclick="this.closest('form').submit(); return false;" class="btn-primary">
+                    <span>Störung melden</span>
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </a>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer - EXAKT WIE index.ejs -->
+    <footer>
+        <!-- Footer content bleibt gleich -->
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="/images/TVG_Logo.svg" alt="TVG Klimatechnik">
+                </div>
+                <p>Seit über 50 Jahren Ihr Partner für moderne Klimatechnik in Österreich. Beratung, Planung, Montage und Service - alles aus einer Hand.</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">Klimatechnik der <strong>KOR Gruppe</strong></p>
+                
+                <h4 style="margin-top: 2rem;">Unsere Standorte</h4>
+                <div class="locations">
+                    <div class="location-card">
+                        <h5>📍 Wien</h5>
+                        <p>Hauptsitz</p>
+                        <p style="font-size: 0.8rem; opacity: 0.6;">Musterstraße 1<br>1010 Wien</p>
+                    </div>
+                    <div class="location-card">
+                        <h5>📍 Linz</h5>
+                        <p>Oberösterreich</p>
+                        <p style="font-size: 0.8rem; opacity: 0.6;">Landstraße 50<br>4020 Linz</p>
+                    </div>
+                    <div class="location-card">
+                        <h5>📍 Graz</h5>
+                        <p>Steiermark</p>
+                        <p style="font-size: 0.8rem; opacity: 0.6;">Herrengasse 16<br>8010 Graz</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Schnellkontakt</h4>
+                <p>📞 <a href="tel:+4312345678">+43 1 234 567-8</a><br>
+                📱 <a href="tel:+436641234567">+43 664 123 45 67</a><br>
+                ✉️ <a href="mailto:info@tvg.at">info@tvg.at</a><br>
+                🌐 <a href="https://www.tvg.at">www.tvg.at</a></p>
+                
+                <h4 style="margin-top: 2rem;">Notdienst</h4>
+                <p>🚨 24/7 Hotline:<br>
+                <strong><a href="tel:+4380012345">0800 123 45</a></strong></p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Öffnungszeiten</h4>
+                <p><strong>Büro & Beratung:</strong><br>
+                Mo-Do: 8:00 - 17:00<br>
+                Fr: 8:00 - 14:00<br>
+                Sa: nach Vereinbarung</p>
+                
+                <p style="margin-top: 1.5rem;"><strong>Service & Notdienst:</strong><br>
+                365 Tage im Jahr<br>
+                24 Stunden täglich</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 TVG Klimatechnik GmbH - Klimatechnik der KOR Gruppe. Alle Rechte vorbehalten. | 
+            <a href="/impressum">Impressum</a> | 
+            <a href="/datenschutz">Datenschutz</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Header Scroll - EXAKT WIE index.ejs
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.pageYOffset > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu - EXAKT WIE index.ejs
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        // Tab Funktionalität
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const forms = document.querySelectorAll('.contact-form');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Alle Tabs und Formulare zurücksetzen
+                tabBtns.forEach(b => {
+                    b.classList.remove('active');
+                });
+                forms.forEach(form => {
+                    form.style.display = 'none';
+                    form.classList.remove('active');
+                });
+                
+                // Aktiven Tab markieren
+                btn.classList.add('active');
+                
+                // Entsprechendes Formular anzeigen
+                const formId = btn.dataset.form + '-form';
+                const activeForm = document.getElementById(formId);
+                activeForm.style.display = 'block';
+                activeForm.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

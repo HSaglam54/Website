@@ -33,7 +33,7 @@
                 <li><a href="/">Start</a></li>
                 <li><a href="#services">Leistungen</a></li>
                 <li><a href="#about">Über uns</a></li>
-                <li><a href="#contact">Kontakt</a></li>
+                <li><a href="/kontakt">Kontakt</a></li> <!-- GEÄNDERT: von #contact zu /kontakt -->
             </ul>
             
             <div class="menu-toggle" id="menuToggle">
@@ -77,7 +77,7 @@
             </p>
             
             <div class="hero-cta">
-                <a href="#contact" class="btn-primary">
+                <a href="/kontakt" class="btn-primary"> <!-- GEÄNDERT: von #contact zu /kontakt -->
                     <span>Jetzt beraten lassen</span>
                 </a>
                 <a href="#services" class="btn-secondary">
@@ -375,6 +375,25 @@
             el.style.transition = 'all 0.6s ease';
             observer.observe(el);
         });
+        // LOADER NUR BEIM ERSTEN MAL
+window.addEventListener('DOMContentLoaded', () => {
+    // Checken ob Seite schon mal geladen wurde
+    if (sessionStorage.getItem('pageLoaded')) {
+        // Seite wurde schon geladen - Loader sofort ausblenden
+        document.getElementById('loader').style.display = 'none';
+    } else {
+        // Erste Ladung - normaler Loader
+        sessionStorage.setItem('pageLoaded', 'true');
+        
+        // Original Loader Code
+        setTimeout(() => {
+            document.getElementById('loader').classList.add('fade-out');
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+            }, 500);
+        }, 1500);
+    }
+});
     </script>
 </body>
 </html>

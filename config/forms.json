@@ -1,0 +1,43 @@
+{
+    "beratung": {
+      "title": "Beratung & Angebot",
+      "fields": [
+        {
+          "name": "name",
+          "label": "Ihr Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "email",
+          "label": "Ihre E-Mail",
+          "type": "email",
+          "required": true
+        },
+        {
+          "name": "telefon",
+          "label": "Telefonnummer",
+          "type": "tel",
+          "required": false
+        },
+        {
+          "name": "ort",
+          "label": "PLZ & Ort",
+          "type": "text",
+          "required": true,
+          "placeholder": "z.B. 1010 Wien"
+        }
+      ]
+    },
+    "service": {
+      "title": "Service & Wartung",
+      "fields": [
+        {
+          "name": "name",
+          "label": "Ihr Name",
+          "type": "text",
+          "required": true
+        }
+      ]
+    }
+  }
