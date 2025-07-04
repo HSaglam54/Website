@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - TVG Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #f5f5f5;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+        .admin-header {
+            background: #003366;
+            color: white;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .editor-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .edit-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .section-title {
+            font-size: 1.5rem;
+            color: #003366;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #d4af36;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: 'Outfit', sans-serif;
+            transition: border-color 0.3s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #d4af36;
+        }
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .service-item {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+        }
+        .btn-save {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #d4af36;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(212, 175, 54, 0.3);
+            transition: all 0.3s;
+        }
+        .btn-save:hover {
+            background: #c29d28;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212, 175, 54, 0.4);
+        }
+        .success-message {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: #4CAF50;
+            color: white;
+            padding: 20px 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        .preview-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #1976d2;
+        }
+        .emoji-picker {
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .back-link {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .back-link:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <div class="header-content">
+            <h1>Website Editor - Einfach bearbeiten! 🎨</h1>
+            <div>
+                <a href="/admin" class="back-link">← Zurück zum Dashboard</a>
+                <a href="/admin/logout" style="color: #d4af36; margin-left: 20px;">Abmelden</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="editor-container">
+        <div class="preview-info">
+            💡 <strong>Tipp:</strong> Alle Änderungen werden sofort auf der Website sichtbar. 
+            Besuche <a href="/" target="_blank">die Startseite</a> um deine Änderungen zu sehen!
+        </div>
+        
+        <!-- HERO BEREICH -->
+        <div class="edit-section">
+            <h2 class="section-title">🏠 Startseite - Hauptbereich</h2>
+            
+            <div class="form-group">
+                <label>Hauptüberschrift</label>
+                <input type="text" class="form-control" id="hero-title" 
+                       value="<%= content.hero.title %>"
+                       placeholder="z.B. Perfektes Klima für Ihr Zuhause">
+            </div>
+            
+            <div class="form-group">
+                <label>Untertitel</label>
+                <input type="text" class="form-control" id="hero-subtitle" 
+                       value="<%= content.hero.subtitle %>"
+                       placeholder="z.B. TVG Klimatechnik - Ihr Partner...">
+            </div>
+            
+            <div class="form-group">
+                <label>Button Text</label>
+                <input type="text" class="form-control" id="hero-button" 
+                       value="<%= content.hero.buttonText %>"
+                       placeholder="z.B. Jetzt beraten lassen">
+            </div>
+        </div>
+        
+        <!-- LEISTUNGEN -->
+        <div class="edit-section">
+            <h2 class="section-title">💼 Unsere Leistungen</h2>
+            
+            <div class="form-group">
+                <label>Bereichsüberschrift</label>
+                <input type="text" class="form-control" id="services-title" 
+                       value="<%= content.services.title %>">
+            </div>
+            
+            <% content.services.items.forEach((service, index) => { %>
+            <div class="service-item">
+                <h4>Leistung <%= index + 1 %></h4>
+                <div class="form-group">
+                    <label>Icon (Emoji) <span class="emoji-picker">Vorschläge: ❄️ 🔧 📋 🏠 ⚡ 🌡️</span></label>
+                    <input type="text" class="form-control service-icon" 
+                           data-index="<%= index %>"
+                           value="<%= service.icon %>" 
+                           maxlength="2">
+                </div>
+                <div class="form-group">
+                    <label>Titel</label>
+                    <input type="text" class="form-control service-title" 
+                           data-index="<%= index %>"
+                           value="<%= service.title %>">
+                </div>
+                <div class="form-group">
+                    <label>Beschreibung</label>
+                    <textarea class="form-control service-desc" 
+                              data-index="<%= index %>"><%= service.description %></textarea>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+        
+        <!-- KONTAKT -->
+        <div class="edit-section">
+            <h2 class="section-title">📞 Kontaktdaten</h2>
+            
+            <div class="form-group">
+                <label>Telefonnummer</label>
+                <input type="text" class="form-control" id="contact-phone" 
+                       value="<%= content.contact.phone %>">
+            </div>
+            
+            <div class="form-group">
+                <label>E-Mail Adresse</label>
+                <input type="email" class="form-control" id="contact-email" 
+                       value="<%= content.contact.email %>">
+            </div>
+            
+            <div class="form-group">
+                <label>Adresse</label>
+                <input type="text" class="form-control" id="contact-address" 
+                       value="<%= content.contact.address %>">
+            </div>
+        </div>
+    </div>
+    
+    <button class="btn-save" onclick="saveContent()">💾 Änderungen speichern</button>
+    
+    <div class="success-message" id="successMsg">
+        ✅ Änderungen wurden erfolgreich gespeichert!
+    </div>
+    
+    <script>
+        function saveContent() {
+            // Sammle alle Daten
+            const content = {
+                hero: {
+                    title: document.getElementById('hero-title').value,
+                    subtitle: document.getElementById('hero-subtitle').value,
+                    buttonText: document.getElementById('hero-button').value
+                },
+                services: {
+                    title: document.getElementById('services-title').value,
+                    items: []
+                },
+                contact: {
+                    phone: document.getElementById('contact-phone').value,
+                    email: document.getElementById('contact-email').value,
+                    address: document.getElementById('contact-address').value
+                }
+            };
+            
+            // Sammle Service Items
+            document.querySelectorAll('.service-item').forEach((item, index) => {
+                content.services.items.push({
+                    icon: item.querySelector('.service-icon').value,
+                    title: item.querySelector('.service-title').value,
+                    description: item.querySelector('.service-desc').value
+                });
+            });
+            
+            // Sende an Server
+            fetch('/admin/save-content', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(content)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    // Zeige Erfolgsmeldung
+                    const msg = document.getElementById('successMsg');
+                    msg.style.display = 'block';
+                    setTimeout(() => {
+                        msg.style.display = 'none';
+                    }, 3000);
+                } else {
+                    alert('Fehler beim Speichern: ' + data.error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

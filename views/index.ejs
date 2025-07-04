@@ -33,7 +33,7 @@
                 <li><a href="/">Start</a></li>
                 <li><a href="#services">Leistungen</a></li>
                 <li><a href="#about">Über uns</a></li>
-                <li><a href="/kontakt">Kontakt</a></li> <!-- GEÄNDERT: von #contact zu /kontakt -->
+                <li><a href="/kontakt">Kontakt</a></li>
             </ul>
             
             <div class="menu-toggle" id="menuToggle">
@@ -67,18 +67,16 @@
         
         <div class="hero-content">
             <h1>
-                <span><span>PERFEKTES</span></span>
-                <span><span>KLIMA FÜR</span></span>
-                <span><span>IHR ZUHAUSE</span></span>
+                <span><span><%= content.hero.title %></span></span>
             </h1>
             <p class="hero-subtitle">
-                Moderne Klimatechnik vom Experten - für optimalen Komfort in jedem Raum.<br>
+                <%= content.hero.subtitle %><br>
                 <strong>Klimatechnik der KOR Gruppe</strong>
             </p>
             
             <div class="hero-cta">
-                <a href="/kontakt" class="btn-primary"> <!-- GEÄNDERT: von #contact zu /kontakt -->
-                    <span>Jetzt beraten lassen</span>
+                <a href="/kontakt" class="btn-primary">
+                    <span><%= content.hero.buttonText %></span>
                 </a>
                 <a href="#services" class="btn-secondary">
                     <span>Unsere Leistungen</span>
@@ -99,39 +97,19 @@
     <section class="services" id="services">
         <div class="section-header">
             <div class="section-number">01</div>
-            <h2 class="section-title">Unsere Leistungen</h2>
+            <h2 class="section-title"><%= content.services.title %></h2>
             <div class="gold-line"></div>
             <p class="section-subtitle">Alles aus einer Hand für Ihr perfektes Raumklima</p>
         </div>
 
         <div class="service-grid">
-            <!-- Beratung -->
+            <% content.services.items.forEach(service => { %>
             <div class="service-card">
-                <div class="service-icon">🌡️</div>
-                <h3>Beratung</h3>
-                <p>Individuelle Beratung für die optimale Klimatechnik in Ihren Räumen</p>
+                <div class="service-icon"><%= service.icon %></div>
+                <h3><%= service.title %></h3>
+                <p><%= service.description %></p>
             </div>
-
-            <!-- Planung -->
-            <div class="service-card">
-                <div class="service-icon">📐</div>
-                <h3>Planung</h3>
-                <p>Professionelle Planung Ihrer Klimaanlage mit modernster Technik</p>
-            </div>
-
-            <!-- Montage -->
-            <div class="service-card">
-                <div class="service-icon">🔧</div>
-                <h3>Montage</h3>
-                <p>Fachgerechte Installation durch zertifizierte Techniker</p>
-            </div>
-
-            <!-- Service -->
-            <div class="service-card">
-                <div class="service-icon">🛠️</div>
-                <h3>Service & Wartung</h3>
-                <p>Regelmäßige Wartung für dauerhaft optimale Leistung</p>
-            </div>
+            <% }); %>
         </div>
     </section>
 
@@ -184,7 +162,7 @@
         <div class="contact-inner">
             <h2>Bereit für Ihr perfektes Raumklima?</h2>
             <p>Lassen Sie sich von unseren Experten beraten und finden Sie die ideale Klimalösung</p>
-            <a href="tel:+43XXXXXXX" class="contact-btn">
+            <a href="tel:<%= content.contact.phone.replace(/\s/g, '') %>" class="contact-btn">
                 <span>Jetzt anrufen</span>
             </a>
         </div>
@@ -222,9 +200,9 @@
             
             <div class="footer-section">
                 <h4>Schnellkontakt</h4>
-                <p>📞 <a href="tel:+4312345678">+43 1 234 567-8</a><br>
+                <p>📞 <a href="tel:<%= content.contact.phone.replace(/\s/g, '') %>"><%= content.contact.phone %></a><br>
                 📱 <a href="tel:+436641234567">+43 664 123 45 67</a><br>
-                ✉️ <a href="mailto:info@tvg.at">info@tvg.at</a><br>
+                ✉️ <a href="mailto:<%= content.contact.email %>"><%= content.contact.email %></a><br>
                 🌐 <a href="https://www.tvg.at">www.tvg.at</a></p>
                 
                 <h4 style="margin-top: 2rem;">Notdienst</h4>
@@ -246,7 +224,7 @@
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2025 TVG Klimatechnik GmbH - Klimatechnik der KOR Gruppe. Alle Rechte vorbehalten. | 
+            <p>&copy; <%= currentYear %> TVG Klimatechnik GmbH - Klimatechnik der KOR Gruppe. Alle Rechte vorbehalten. | 
             <a href="/impressum">Impressum</a> | 
             <a href="/datenschutz">Datenschutz</a></p>
         </div>
@@ -375,25 +353,26 @@
             el.style.transition = 'all 0.6s ease';
             observer.observe(el);
         });
-        // LOADER NUR BEIM ERSTEN MAL
-window.addEventListener('DOMContentLoaded', () => {
-    // Checken ob Seite schon mal geladen wurde
-    if (sessionStorage.getItem('pageLoaded')) {
-        // Seite wurde schon geladen - Loader sofort ausblenden
-        document.getElementById('loader').style.display = 'none';
-    } else {
-        // Erste Ladung - normaler Loader
-        sessionStorage.setItem('pageLoaded', 'true');
         
-        // Original Loader Code
-        setTimeout(() => {
-            document.getElementById('loader').classList.add('fade-out');
-            setTimeout(() => {
+        // LOADER NUR BEIM ERSTEN MAL
+        window.addEventListener('DOMContentLoaded', () => {
+            // Checken ob Seite schon mal geladen wurde
+            if (sessionStorage.getItem('pageLoaded')) {
+                // Seite wurde schon geladen - Loader sofort ausblenden
                 document.getElementById('loader').style.display = 'none';
-            }, 500);
-        }, 1500);
-    }
-});
+            } else {
+                // Erste Ladung - normaler Loader
+                sessionStorage.setItem('pageLoaded', 'true');
+                
+                // Original Loader Code
+                setTimeout(() => {
+                    document.getElementById('loader').classList.add('fade-out');
+                    setTimeout(() => {
+                        document.getElementById('loader').style.display = 'none';
+                    }, 500);
+                }, 1500);
+            }
+        });
     </script>
 </body>
 </html>
